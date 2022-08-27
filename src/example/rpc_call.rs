@@ -64,7 +64,7 @@ impl<'a> FibonacciRpcClient<'a> {
     }
 }
 
-pub fn start() -> Result<()> {
+pub fn start(parameter: u64) -> Result<()> {
     // Open connection.
     let mut connection = Connection::insecure_open(&CONNECT_STR)?;
 
@@ -130,20 +130,20 @@ pub fn start() -> Result<()> {
             Ok("RPC call: ERROR: server failed to respond to RPC call".to_string())
         }
     }
-    fn start() -> Result<()> {
-        // Open connection.
-        let mut connection = Connection::insecure_open(&CONNECT_STR)?;
-        // Open a channel - None says let the library choose the channel ID.
-        let channel = connection.open_channel(None)?;
-        let rpc_client = FibonacciRpcClient::new(&channel)?;
-        println!("RPC call: Requesting fib(30)");
-        let result = rpc_client.call(30)?;
-        println!("RPC call: Got {}", result);
-        connection.close()
-    }
+    // fn start(parameter: u64) -> Result<()> {
+    //     // Open connection.
+    //     let mut connection = Connection::insecure_open(&CONNECT_STR)?;
+    //     // Open a channel - None says let the library choose the channel ID.
+    //     let channel = connection.open_channel(None)?;
+    //     let rpc_client = FibonacciRpcClient::new(&channel)?;
+    //     println!("RPC call: Requesting fib({})", parameter);
+    //     let result = rpc_client.call(parameter)?;
+    //     println!("RPC call: Got {}", result);
+    //     connection.close()
+    // }
 
-    println!("RPC call: Requesting fib(30)");
-    let result = rpc_client.call(30)?;
+    println!("RPC call: Requesting fib({})", parameter);
+    let result = rpc_client.call(parameter)?;
     println!("RPC call: Got {}", result);
 
     connection.close()

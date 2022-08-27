@@ -12,17 +12,9 @@ fn main() {
     // ----------------------------------------------------
     // rpc example
     let receiver = thread::spawn(move || {
-        let result = example::rpc_function::start();
-        match result {
-            Ok(v) => println!("reciver: working with result"),
-            Err(e) => println!("reciver: error parsing result"),
-        }
+        example::rpc_function::start();
     });
     // rpc call
-    let result1 = example::rpc_call::start();
-    match result1 {
-        Ok(v) => println!("sender: working with result"),
-        Err(e) => println!("sender: error parsing result"),
-    }
-    receiver.join().unwrap();
+    example::rpc_call::start(10);
+    example::rpc_call::start(20);
 }
